@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import TwoSumAnimation from './TwoSumAnimation';
-import Tabs from './Tabs';
+import Tabs from '../../components/Tabs';
 // Animation component would be imported here if present
 
 export default function TwoSum() {
