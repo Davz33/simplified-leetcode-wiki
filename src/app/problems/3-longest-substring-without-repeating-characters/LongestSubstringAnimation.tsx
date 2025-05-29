@@ -2,7 +2,11 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 
-const s = 'abcabcbb';
+interface LongestSubstringAnimationProps {
+  s?: string;
+}
+
+const defaultS = 'abcabcbb';
 
 function getSteps(s: string) {
   const steps = [];
@@ -28,9 +32,9 @@ function getSteps(s: string) {
   return steps;
 }
 
-const steps = getSteps(s);
-
-export default function LongestSubstringAnimation() {
+export default function LongestSubstringAnimation({ s }: LongestSubstringAnimationProps) {
+  const sToUse = s ?? defaultS;
+  const steps = getSteps(sToUse);
   const [step, setStep] = useState(0);
   const [playing, setPlaying] = useState(true);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
