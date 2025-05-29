@@ -26,9 +26,10 @@ function getSteps(nums: number[], target: number) {
   return steps;
 }
 
-const steps = getSteps(nums, target);
-
-export default function TwoSumAnimation() {
+export default function TwoSumAnimation({ nums: propNums, target: propTarget }: { nums?: number[], target?: number }) {
+  const numsToUse = propNums ?? nums;
+  const targetToUse = propTarget ?? target;
+  const steps = getSteps(numsToUse, targetToUse);
   const [step, setStep] = useState(0);
   const [playing, setPlaying] = useState(true);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -64,7 +65,7 @@ export default function TwoSumAnimation() {
         ))}
       </div>
       <div className="w-full max-w-md text-sm bg-gray-50 rounded p-2 mb-2">
-        <div>Target: <b>{target}</b></div>
+        <div>Target: <b>{targetToUse}</b></div>
         <div>Current index: <b>{current.i}</b> (value: <b>{current.current}</b>)</div>
         <div>Complement needed: <b>{current.complement}</b></div>
         <div>Hash map: {Object.keys(current.map).length === 0 ? <span className="text-gray-400">&#123;&#125;</span> : (
