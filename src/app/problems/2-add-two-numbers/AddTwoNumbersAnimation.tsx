@@ -2,9 +2,13 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 
-// Example input: (2 -> 4 -> 3) + (5 -> 6 -> 4) = (7 -> 0 -> 8)
-const l1 = [2, 4, 3];
-const l2 = [5, 6, 4];
+interface AddTwoNumbersAnimationProps {
+  l1?: number[];
+  l2?: number[];
+}
+
+const defaultL1 = [2, 4, 3];
+const defaultL2 = [5, 6, 4];
 
 function getSteps(l1: number[], l2: number[]) {
   const steps = [];
@@ -26,9 +30,10 @@ function getSteps(l1: number[], l2: number[]) {
   return steps;
 }
 
-const steps = getSteps(l1, l2);
-
-export default function AddTwoNumbersAnimation() {
+export default function AddTwoNumbersAnimation({ l1, l2 }: AddTwoNumbersAnimationProps) {
+  const l1ToUse = l1 ?? defaultL1;
+  const l2ToUse = l2 ?? defaultL2;
+  const steps = getSteps(l1ToUse, l2ToUse);
   const [step, setStep] = useState(0);
   const [playing, setPlaying] = useState(true);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);

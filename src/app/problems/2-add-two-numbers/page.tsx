@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Tabs from '../../components/Tabs';
 import AddTwoNumbersAnimation from './AddTwoNumbersAnimation';
 
 export default function AddTwoNumbers() {
@@ -15,19 +16,26 @@ export default function AddTwoNumbers() {
         <li>If the sum is 10 or more, carry over 1 to the next digit.</li>
         <li>Continue until both lists and the carry are processed.</li>
       </ol>
-      <h3 className="font-semibold mb-1">Example</h3>
-      <div className="mb-4 bg-gray-50 p-3 rounded">
-        <div><b>Input:</b> (2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)</div>
-        <div><b>Output:</b> (7 -&gt; 0 -&gt; 8) <span className="text-gray-500">// 342 + 465 = 807</span></div>
-      </div>
-      <h3 className="font-semibold mb-1">Why this works</h3>
-      <p className="mb-4">This approach mimics the way you add numbers by hand, digit by digit, from right to left, handling the carry as you go.</p>
-      <h3 className="font-semibold mb-2">Animated Solution Visualization</h3>
-      <AddTwoNumbersAnimation />
+      <h3 className="font-semibold mb-1">Use Cases & Animations</h3>
+      <Tabs labels={["Simple", "Complex"]}>
+        <div key="simple">
+          <div className="mb-4 bg-gray-50 p-3 rounded">
+            <div><b>Input:</b> (2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)</div>
+            <div><b>Output:</b> (7 -&gt; 0 -&gt; 8) <span className="text-gray-500">{'// 342 + 465 = 807'}</span></div>
+          </div>
+          <AddTwoNumbersAnimation />
+        </div>
+        <div key="complex">
+          <div className="mb-4 bg-gray-50 p-3 rounded">
+            <div><b>Input:</b> (9 -&gt; 9 -&gt; 9 -&gt; 9 -&gt; 9 -&gt; 9 -&gt; 9) + (9 -&gt; 9 -&gt; 9 -&gt; 9)</div>
+            <div><b>Output:</b> (8 -&gt; 9 -&gt; 9 -&gt; 9 -&gt; 0 -&gt; 0 -&gt; 0 -&gt; 1) <span className="text-gray-500">{'// 9999999 + 9999 = 10009998'}</span></div>
+          </div>
+          <AddTwoNumbersAnimation l1={[9,9,9,9,9,9,9]} l2={[9,9,9,9]} />
+        </div>
+      </Tabs>
       <h3 className="font-semibold mb-2 mt-6">Code Solutions</h3>
-      <div className="mb-4">
-        <div className="font-semibold">Python</div>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm"><code>{`
+      <Tabs labels={["Python", "Java", "C++"]}>
+        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm" key="py"><code>{`
 class Solution:
     def addTwoNumbers(self, l1, l2):
         dummy = ListNode(0)
@@ -44,10 +52,7 @@ class Solution:
             l2 = l2.next if l2 else None
         return dummy.next
 `}</code></pre>
-      </div>
-      <div className="mb-4">
-        <div className="font-semibold">Java</div>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm"><code>{`
+        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm" key="java"><code>{`
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode dummy = new ListNode(0), cur = dummy;
@@ -66,10 +71,7 @@ class Solution {
     }
 }
 `}</code></pre>
-      </div>
-      <div className="mb-4">
-        <div className="font-semibold">C++</div>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm"><code>{`
+        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm" key="cpp"><code>{`
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
@@ -89,7 +91,7 @@ public:
     }
 };
 `}</code></pre>
-      </div>
+      </Tabs>
       <Link href="/" className="text-blue-600 hover:underline mt-8 inline-block">← Back to Home</Link>
     </main>
   );
