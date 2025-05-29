@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import Tabs from '../../components/Tabs';
-import MedianOfTwoSortedArraysAnimation from './MedianOfTwoSortedArraysAnimation';
+import dynamic from 'next/dynamic';
+const MedianOfTwoSortedArraysAnimation = dynamic(() => import('./MedianOfTwoSortedArraysAnimation'), { ssr: false });
 
 export default function MedianOfTwoSortedArrays() {
   return (
@@ -15,26 +15,19 @@ export default function MedianOfTwoSortedArrays() {
         <li>Ensure all elements in the left halves are less than or equal to all elements in the right halves.</li>
         <li>The median is the average of the max of the left halves and the min of the right halves (or just the middle value if the total length is odd).</li>
       </ol>
-      <h3 className="font-semibold mb-1">Use Cases & Animations</h3>
-      <Tabs labels={["Simple", "Complex"]}>
-        <div key="simple">
-          <div className="mb-4 bg-gray-50 p-3 rounded">
-            <div><b>Input:</b> nums1 = [1, 3], nums2 = [2]</div>
-            <div><b>Output:</b> 2.0 <span className="text-gray-500">{'// The median is 2.0.'}</span></div>
-          </div>
-          <MedianOfTwoSortedArraysAnimation />
-        </div>
-        <div key="complex">
-          <div className="mb-4 bg-gray-50 p-3 rounded">
-            <div><b>Input:</b> nums1 = [1, 4, 7, 10, 13], nums2 = [2, 3, 5, 6, 8, 9, 11, 12]</div>
-            <div><b>Output:</b> 7.0 <span className="text-gray-500">{'// The median is 7.0.'}</span></div>
-          </div>
-          <MedianOfTwoSortedArraysAnimation nums1={[1,4,7,10,13]} nums2={[2,3,5,6,8,9,11,12]} />
-        </div>
-      </Tabs>
+      <h3 className="font-semibold mb-1">Example</h3>
+      <div className="mb-4 bg-gray-50 p-3 rounded">
+        <div><b>Input:</b> nums1 = [1, 3], nums2 = [2]</div>
+        <div><b>Output:</b> 2.0 <span className="text-gray-500">// The combined array is [1, 2, 3], and the median is 2.</span></div>
+      </div>
+      <h3 className="font-semibold mb-1">Why this works</h3>
+      <p className="mb-4">By partitioning the arrays and using binary search, we efficiently find the correct split for the median in logarithmic time.</p>
+      <h3 className="font-semibold mb-2">Animated Solution Visualization</h3>
+      <MedianOfTwoSortedArraysAnimation />
       <h3 className="font-semibold mb-2 mt-6">Code Solutions</h3>
-      <Tabs labels={["Python", "Java", "C++"]}>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm" key="py"><code>{`
+      <div className="mb-4">
+        <div className="font-semibold">Python</div>
+        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm"><code>{`
 class Solution:
     def findMedianSortedArrays(self, nums1, nums2):
         A, B = nums1, nums2
@@ -60,7 +53,10 @@ class Solution:
                 else: min_of_right = min(A[i], B[j])
                 return (max_of_left + min_of_right) / 2.0
 `}</code></pre>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm" key="java"><code>{`
+      </div>
+      <div className="mb-4">
+        <div className="font-semibold">Java</div>
+        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm"><code>{`
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         int m = nums1.length, n = nums2.length;
@@ -88,7 +84,10 @@ class Solution {
     }
 }
 `}</code></pre>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm" key="cpp"><code>{`
+      </div>
+      <div className="mb-4">
+        <div className="font-semibold">C++</div>
+        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm"><code>{`
 class Solution {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
@@ -117,7 +116,7 @@ public:
     }
 };
 `}</code></pre>
-      </Tabs>
+      </div>
       <Link href="/" className="text-blue-600 hover:underline mt-8 inline-block">← Back to Home</Link>
     </main>
   );

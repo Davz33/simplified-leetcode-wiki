@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import TwoSumAnimation from './TwoSumAnimation';
-import Tabs from '../../components/Tabs';
+import dynamic from 'next/dynamic';
+const TwoSumAnimation = dynamic(() => import('./TwoSumAnimation'), { ssr: false });
 // Animation component would be imported here if present
 
 export default function TwoSum() {
@@ -22,26 +22,30 @@ export default function TwoSum() {
         <li>Use a dictionary to remember numbers you&#39;ve seen and their indices.</li>
         <li>If you find such a pair, return their indices.</li>
       </ol>
-      <h3 className="font-semibold mb-1">Use Cases & Animations</h3>
-      <Tabs labels={["Simple", "Complex"]}>
-        <div key="simple">
-          <div className="mb-4 bg-gray-50 p-3 rounded">
-            <div><b>Input:</b> nums = [2, 7, 11, 15, 1, 8], target = 9</div>
-            <div><b>Output:</b> [0, 1] <span className="text-gray-500">{'// nums[0] + nums[1] = 2 + 7 = 9'}</span></div>
+      <h3 className="font-semibold mb-1">Example</h3>
+      <div className="mb-4 bg-gray-50 p-3 rounded">
+        <div><b>Input:</b> nums = [2, 7, 11, 15, 1, 8], target = 9</div>
+        <div><b>Output:</b> [0, 1] <span className="text-gray-500">// nums[0] + nums[1] = 2 + 7 = 9</span></div>
+      </div>
+      <h3 className="font-semibold mb-1">Why this works</h3>
+      <p className="mb-4">The dictionary lets you check in constant time if the needed number exists, making the solution fast (O(n) time).</p>
+      <h3 className="font-semibold mb-2">Animated Solution Visualization</h3>
+      <TwoSumAnimation />
+      <h3 className="font-semibold mb-2">Code-generated Diagram</h3>
+      <div className="flex gap-2 mb-8 justify-center">
+        {nums.map((num, idx) => (
+          <div
+            key={idx}
+            className={`w-12 h-12 flex items-center justify-center rounded border-2 text-lg font-bold ${highlight.includes(idx) ? 'bg-blue-100 border-blue-500 text-blue-700' : 'bg-white border-gray-300 text-gray-700'}`}
+          >
+            {num}
           </div>
-          <TwoSumAnimation />
-        </div>
-        <div key="complex">
-          <div className="mb-4 bg-gray-50 p-3 rounded">
-            <div><b>Input:</b> nums = [10, 22, 5, 75, 65, 80, 120, 150, 200, 1, 2, 3, 4, 5, 6], target = 170</div>
-            <div><b>Output:</b> [2, 8] <span className="text-gray-500">{'// nums[2] + nums[8] = 5 + 165 = 170'}</span></div>
-          </div>
-          <TwoSumAnimation nums={[10, 22, 5, 75, 65, 80, 120, 150, 200, 1, 2, 3, 4, 5, 6]} target={170} />
-        </div>
-      </Tabs>
+        ))}
+      </div>
       <h3 className="font-semibold mb-2 mt-6">Code Solutions</h3>
-      <Tabs labels={["Python", "Java", "C++"]}>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm" key="py"><code>{`
+      <div className="mb-4">
+        <div className="font-semibold">Python</div>
+        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm"><code>{`
 class Solution:
     def twoSum(self, nums, target):
         d = {}
@@ -51,7 +55,10 @@ class Solution:
                 return [d[y], i]
             d[x] = i
 `}</code></pre>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm" key="java"><code>{`
+      </div>
+      <div className="mb-4">
+        <div className="font-semibold">Java</div>
+        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm"><code>{`
 class Solution {
     public int[] twoSum(int[] nums, int target) {
         Map<Integer, Integer> d = new HashMap<>();
@@ -66,7 +73,10 @@ class Solution {
     }
 }
 `}</code></pre>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm" key="cpp"><code>{`
+      </div>
+      <div className="mb-4">
+        <div className="font-semibold">C++</div>
+        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm"><code>{`
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
@@ -80,7 +90,7 @@ public:
     }
 };
 `}</code></pre>
-      </Tabs>
+      </div>
       <Link href="/" className="text-blue-600 hover:underline mt-8 inline-block">← Back to Home</Link>
     </main>
   );

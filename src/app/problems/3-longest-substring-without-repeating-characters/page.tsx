@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import Tabs from '../../components/Tabs';
-import LongestSubstringAnimation from './LongestSubstringAnimation';
+import dynamic from 'next/dynamic';
+const LongestSubstringAnimation = dynamic(() => import('./LongestSubstringAnimation'), { ssr: false });
 
 export default function LongestSubstring() {
   return (
@@ -16,28 +16,19 @@ export default function LongestSubstring() {
         <li>If a character repeats, move the left pointer forward until the substring has no repeats.</li>
         <li>Keep track of the maximum length found.</li>
       </ol>
-      <h3 className="font-semibold mb-1">Use Cases & Animations</h3>
-      <Tabs labels={["Simple", "Complex"]}>
-        <div key="simple">
-          <div className="mb-4 bg-gray-50 p-3 rounded">
-            <div><b>Input:</b> s = "abcabcbb"</div>
-            <div><b>Output:</b> 3 <span className="text-gray-500">{'// The answer is "abc", with length 3.'}</span></div>
-          </div>
-          <LongestSubstringAnimation />
-        </div>
-        <div key="complex">
-          <div className="mb-4 bg-gray-50 p-3 rounded">
-            <div><b>Input:</b> s = "pwwkewxyzabcdefg"</div>
-            <div><b>Output:</b> 8 <span className="text-gray-500">{'// The answer is "xyzabcdef", with length 8.'}</span></div>
-          </div>
-          <LongestSubstringAnimation s="pwwkewxyzabcdefg" />
-        </div>
-      </Tabs>
-      <h3 className="font-semibold mb-2">Why this works</h3>
+      <h3 className="font-semibold mb-1">Example</h3>
+      <div className="mb-4 bg-gray-50 p-3 rounded">
+        <div><b>Input:</b> s = "abcabcbb"</div>
+        <div><b>Output:</b> 3 <span className="text-gray-500">// The answer is "abc", with length 3.</span></div>
+      </div>
+      <h3 className="font-semibold mb-1">Why this works</h3>
       <p className="mb-4">The sliding window ensures you always have a substring with unique characters, and you only scan each character once, making it efficient.</p>
+      <h3 className="font-semibold mb-2">Animated Solution Visualization</h3>
+      <LongestSubstringAnimation />
       <h3 className="font-semibold mb-2 mt-6">Code Solutions</h3>
-      <Tabs labels={["Python", "Java", "C++"]}>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm" key="py"><code>{`
+      <div className="mb-4">
+        <div className="font-semibold">Python</div>
+        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm"><code>{`
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         d = {}
@@ -49,7 +40,10 @@ class Solution:
             ans = max(ans, right - left + 1)
         return ans
 `}</code></pre>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm" key="java"><code>{`
+      </div>
+      <div className="mb-4">
+        <div className="font-semibold">Java</div>
+        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm"><code>{`
 class Solution {
     public int lengthOfLongestSubstring(String s) {
         Map<Character, Integer> d = new HashMap<>();
@@ -66,7 +60,10 @@ class Solution {
     }
 }
 `}</code></pre>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm" key="cpp"><code>{`
+      </div>
+      <div className="mb-4">
+        <div className="font-semibold">C++</div>
+        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm"><code>{`
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
@@ -84,7 +81,7 @@ public:
     }
 };
 `}</code></pre>
-      </Tabs>
+      </div>
       <Link href="/" className="text-blue-600 hover:underline mt-8 inline-block">← Back to Home</Link>
     </main>
   );
