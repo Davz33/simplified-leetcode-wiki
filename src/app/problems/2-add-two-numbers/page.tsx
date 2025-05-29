@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
-const AddTwoNumbersAnimation = dynamic(() => import('./AddTwoNumbersAnimation'), { ssr: false });
+import AddTwoNumbersAnimationClient from './AddTwoNumbersAnimationClient';
 
 export default function AddTwoNumbers() {
   return (
@@ -24,7 +23,7 @@ export default function AddTwoNumbers() {
       <h3 className="font-semibold mb-1">Why this works</h3>
       <p className="mb-4">This approach mimics the way you add numbers by hand, digit by digit, from right to left, handling the carry as you go.</p>
       <h3 className="font-semibold mb-2">Animated Solution Visualization</h3>
-      <AddTwoNumbersAnimation />
+      <AddTwoNumbersAnimationClient />
       <h3 className="font-semibold mb-2 mt-6">Code Solutions</h3>
       <div className="mb-4">
         <div className="font-semibold">Python</div>

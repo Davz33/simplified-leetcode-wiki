@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
-const TwoSumAnimation = dynamic(() => import('./TwoSumAnimation'), { ssr: false });
+import TwoSumAnimationClient from './TwoSumAnimationClient';
 // Animation component would be imported here if present
 
 export default function TwoSum() {
@@ -30,7 +29,7 @@ export default function TwoSum() {
       <h3 className="font-semibold mb-1">Why this works</h3>
       <p className="mb-4">The dictionary lets you check in constant time if the needed number exists, making the solution fast (O(n) time).</p>
       <h3 className="font-semibold mb-2">Animated Solution Visualization</h3>
-      <TwoSumAnimation />
+      <TwoSumAnimationClient />
       <h3 className="font-semibold mb-2">Code-generated Diagram</h3>
       <div className="flex gap-2 mb-8 justify-center">
         {nums.map((num, idx) => (

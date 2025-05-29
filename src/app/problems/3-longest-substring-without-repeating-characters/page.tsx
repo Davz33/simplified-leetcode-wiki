@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
-const LongestSubstringAnimation = dynamic(() => import('./LongestSubstringAnimation'), { ssr: false });
+import LongestSubstringAnimationClient from './LongestSubstringAnimationClient';
 
 export default function LongestSubstring() {
   return (
@@ -24,7 +23,7 @@ export default function LongestSubstring() {
       <h3 className="font-semibold mb-1">Why this works</h3>
       <p className="mb-4">The sliding window ensures you always have a substring with unique characters, and you only scan each character once, making it efficient.</p>
       <h3 className="font-semibold mb-2">Animated Solution Visualization</h3>
-      <LongestSubstringAnimation />
+      <LongestSubstringAnimationClient />
       <h3 className="font-semibold mb-2 mt-6">Code Solutions</h3>
       <div className="mb-4">
         <div className="font-semibold">Python</div>

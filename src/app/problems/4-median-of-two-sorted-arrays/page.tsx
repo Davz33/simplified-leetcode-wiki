@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
-const MedianOfTwoSortedArraysAnimation = dynamic(() => import('./MedianOfTwoSortedArraysAnimation'), { ssr: false });
+import MedianOfTwoSortedArraysAnimationClient from './MedianOfTwoSortedArraysAnimationClient';
 
 export default function MedianOfTwoSortedArrays() {
   return (
@@ -23,7 +22,7 @@ export default function MedianOfTwoSortedArrays() {
       <h3 className="font-semibold mb-1">Why this works</h3>
       <p className="mb-4">By partitioning the arrays and using binary search, we efficiently find the correct split for the median in logarithmic time.</p>
       <h3 className="font-semibold mb-2">Animated Solution Visualization</h3>
-      <MedianOfTwoSortedArraysAnimation />
+      <MedianOfTwoSortedArraysAnimationClient />
       <h3 className="font-semibold mb-2 mt-6">Code Solutions</h3>
       <div className="mb-4">
         <div className="font-semibold">Python</div>
