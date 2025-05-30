@@ -55,6 +55,11 @@ export default function MedianOfTwoSortedArraysAnimation({ nums1, nums2 }: Media
 
   const current = steps[step];
 
+  // Safety check: if no steps available, return loading state
+  if (!current) {
+    return <div className="text-center p-4">Loading animation...</div>;
+  }
+
   return (
     <div className="flex flex-col items-center gap-4">
       <div className="flex gap-8 mb-2">
