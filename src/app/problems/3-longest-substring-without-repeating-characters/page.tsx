@@ -1,5 +1,9 @@
+'use client';
 import Link from 'next/link';
 import LongestSubstringAnimationClient from './LongestSubstringAnimationClient';
+import Tabs from '../../components/Tabs';
+import CodeSolution from '../../components/CodeSolution';
+import { longestSubstringSolutions } from './solutions';
 
 export default function LongestSubstring() {
   return (
@@ -15,72 +19,30 @@ export default function LongestSubstring() {
         <li>If a character repeats, move the left pointer forward until the substring has no repeats.</li>
         <li>Keep track of the maximum length found.</li>
       </ol>
-      <h3 className="font-semibold mb-1">Example</h3>
-      <div className="mb-4 bg-gray-50 p-3 rounded">
-        <div><b>Input:</b> s = "abcabcbb"</div>
-        <div><b>Output:</b> 3 <span className="text-gray-500">// The answer is "abc", with length 3.</span></div>
-      </div>
       <h3 className="font-semibold mb-1">Why this works</h3>
       <p className="mb-4">The sliding window ensures you always have a substring with unique characters, and you only scan each character once, making it efficient.</p>
-      <h3 className="font-semibold mb-2">Animated Solution Visualization</h3>
-      <LongestSubstringAnimationClient />
+      
+      <h3 className="font-semibold mb-1">Examples</h3>
+      <Tabs labels={["Simple", "Complex"]}>
+        <div key="simple">
+          <div className="mb-4 bg-gray-50 p-3 rounded">
+            <div><b>Input:</b> s = &quot;abcabcbb&quot;</div>
+            <div><b>Output:</b> 3 <span className="text-gray-500">(The answer is &quot;abc&quot;, with length 3.)</span></div>
+          </div>
+          <LongestSubstringAnimationClient />
+        </div>
+        <div key="complex">
+          <div className="mb-4 bg-gray-50 p-3 rounded">
+            <div><b>Input:</b> s = &quot;pwwkewabcdefg&quot;</div>
+            <div><b>Output:</b> 7 <span className="text-gray-500">(The answer is &quot;abcdefg&quot;, with length 7.)</span></div>
+            <div className="text-sm text-gray-600 mt-1">This example demonstrates the algorithm handling multiple repetitions and finding a longer optimal substring.</div>
+          </div>
+          <LongestSubstringAnimationClient s="pwwkewabcdefg" />
+        </div>
+      </Tabs>
+      
       <h3 className="font-semibold mb-2 mt-6">Code Solutions</h3>
-      <div className="mb-4">
-        <div className="font-semibold">Python</div>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm"><code>{`
-class Solution:
-    def lengthOfLongestSubstring(self, s: str) -> int:
-        d = {}
-        ans = left = 0
-        for right, c in enumerate(s):
-            if c in d and d[c] >= left:
-                left = d[c] + 1
-            d[c] = right
-            ans = max(ans, right - left + 1)
-        return ans
-`}</code></pre>
-      </div>
-      <div className="mb-4">
-        <div className="font-semibold">Java</div>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm"><code>{`
-class Solution {
-    public int lengthOfLongestSubstring(String s) {
-        Map<Character, Integer> d = new HashMap<>();
-        int ans = 0, left = 0;
-        for (int right = 0; right < s.length(); right++) {
-            char c = s.charAt(right);
-            if (d.containsKey(c) && d.get(c) >= left) {
-                left = d.get(c) + 1;
-            }
-            d.put(c, right);
-            ans = Math.max(ans, right - left + 1);
-        }
-        return ans;
-    }
-}
-`}</code></pre>
-      </div>
-      <div className="mb-4">
-        <div className="font-semibold">C++</div>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm"><code>{`
-class Solution {
-public:
-    int lengthOfLongestSubstring(string s) {
-        unordered_map<char, int> d;
-        int ans = 0, left = 0;
-        for (int right = 0; right < s.size(); ++right) {
-            char c = s[right];
-            if (d.count(c) && d[c] >= left) {
-                left = d[c] + 1;
-            }
-            d[c] = right;
-            ans = max(ans, right - left + 1);
-        }
-        return ans;
-    }
-};
-`}</code></pre>
-      </div>
+      <CodeSolution solutions={longestSubstringSolutions} />
       <Link href="/" className="text-blue-600 hover:underline mt-8 inline-block">← Back to Home</Link>
     </main>
   );

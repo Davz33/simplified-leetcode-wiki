@@ -1,5 +1,9 @@
+'use client';
 import Link from 'next/link';
 import MedianOfTwoSortedArraysAnimationClient from './MedianOfTwoSortedArraysAnimationClient';
+import Tabs from '../../components/Tabs';
+import CodeSolution from '../../components/CodeSolution';
+import { medianOfTwoSortedArraysSolutions } from './solutions';
 
 export default function MedianOfTwoSortedArrays() {
   return (
@@ -14,108 +18,30 @@ export default function MedianOfTwoSortedArrays() {
         <li>Ensure all elements in the left halves are less than or equal to all elements in the right halves.</li>
         <li>The median is the average of the max of the left halves and the min of the right halves (or just the middle value if the total length is odd).</li>
       </ol>
-      <h3 className="font-semibold mb-1">Example</h3>
-      <div className="mb-4 bg-gray-50 p-3 rounded">
-        <div><b>Input:</b> nums1 = [1, 3], nums2 = [2]</div>
-        <div><b>Output:</b> 2.0 <span className="text-gray-500">// The combined array is [1, 2, 3], and the median is 2.</span></div>
-      </div>
       <h3 className="font-semibold mb-1">Why this works</h3>
       <p className="mb-4">By partitioning the arrays and using binary search, we efficiently find the correct split for the median in logarithmic time.</p>
-      <h3 className="font-semibold mb-2">Animated Solution Visualization</h3>
-      <MedianOfTwoSortedArraysAnimationClient />
+      
+      <h3 className="font-semibold mb-1">Examples</h3>
+      <Tabs labels={["Simple", "Complex"]}>
+        <div key="simple">
+          <div className="mb-4 bg-gray-50 p-3 rounded">
+            <div><b>Input:</b> nums1 = [1, 3], nums2 = [2]</div>
+            <div><b>Output:</b> 2.0 <span className="text-gray-500">(The combined array is [1, 2, 3], and the median is 2.)</span></div>
+          </div>
+          <MedianOfTwoSortedArraysAnimationClient />
+        </div>
+        <div key="complex">
+          <div className="mb-4 bg-gray-50 p-3 rounded">
+            <div><b>Input:</b> nums1 = [1, 4, 7, 10, 13], nums2 = [2, 3, 5, 6, 8, 9, 11, 12]</div>
+            <div><b>Output:</b> 7.0 <span className="text-gray-500">(The median is 7.0 from the merged array)</span></div>
+            <div className="text-sm text-gray-600 mt-1">This example demonstrates the algorithm working with larger arrays where the solution is found in the middle.</div>
+          </div>
+          <MedianOfTwoSortedArraysAnimationClient nums1={[1, 4, 7, 10, 13]} nums2={[2, 3, 5, 6, 8, 9, 11, 12]} />
+        </div>
+      </Tabs>
+      
       <h3 className="font-semibold mb-2 mt-6">Code Solutions</h3>
-      <div className="mb-4">
-        <div className="font-semibold">Python</div>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm"><code>{`
-class Solution:
-    def findMedianSortedArrays(self, nums1, nums2):
-        A, B = nums1, nums2
-        m, n = len(A), len(B)
-        if m > n:
-            A, B, m, n = B, A, n, m
-        imin, imax, half = 0, m, (m + n + 1) // 2
-        while imin <= imax:
-            i = (imin + imax) // 2
-            j = half - i
-            if i < m and B[j-1] > A[i]:
-                imin = i + 1
-            elif i > 0 and A[i-1] > B[j]:
-                imax = i - 1
-            else:
-                if i == 0: max_of_left = B[j-1]
-                elif j == 0: max_of_left = A[i-1]
-                else: max_of_left = max(A[i-1], B[j-1])
-                if (m + n) % 2 == 1:
-                    return max_of_left
-                if i == m: min_of_right = B[j]
-                elif j == n: min_of_right = A[i]
-                else: min_of_right = min(A[i], B[j])
-                return (max_of_left + min_of_right) / 2.0
-`}</code></pre>
-      </div>
-      <div className="mb-4">
-        <div className="font-semibold">Java</div>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm"><code>{`
-class Solution {
-    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int m = nums1.length, n = nums2.length;
-        if (m > n) return findMedianSortedArrays(nums2, nums1);
-        int imin = 0, imax = m, half = (m + n + 1) / 2;
-        while (imin <= imax) {
-            int i = (imin + imax) / 2;
-            int j = half - i;
-            if (i < m && nums2[j-1] > nums1[i]) imin = i + 1;
-            else if (i > 0 && nums1[i-1] > nums2[j]) imax = i - 1;
-            else {
-                int maxLeft = 0;
-                if (i == 0) maxLeft = nums2[j-1];
-                else if (j == 0) maxLeft = nums1[i-1];
-                else maxLeft = Math.max(nums1[i-1], nums2[j-1]);
-                if ((m + n) % 2 == 1) return maxLeft;
-                int minRight = 0;
-                if (i == m) minRight = nums2[j];
-                else if (j == n) minRight = nums1[i];
-                else minRight = Math.min(nums1[i], nums2[j]);
-                return (maxLeft + minRight) / 2.0;
-            }
-        }
-        return 0.0;
-    }
-}
-`}</code></pre>
-      </div>
-      <div className="mb-4">
-        <div className="font-semibold">C++</div>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm"><code>{`
-class Solution {
-public:
-    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-        if (nums1.size() > nums2.size()) return findMedianSortedArrays(nums2, nums1);
-        int m = nums1.size(), n = nums2.size();
-        int imin = 0, imax = m, half = (m + n + 1) / 2;
-        while (imin <= imax) {
-            int i = (imin + imax) / 2;
-            int j = half - i;
-            if (i < m && nums2[j-1] > nums1[i]) imin = i + 1;
-            else if (i > 0 && nums1[i-1] > nums2[j]) imax = i - 1;
-            else {
-                int maxLeft = 0;
-                if (i == 0) maxLeft = nums2[j-1];
-                else if (j == 0) maxLeft = nums1[i-1];
-                else maxLeft = max(nums1[i-1], nums2[j-1]);
-                if ((m + n) % 2 == 1) return maxLeft;
-                int minRight = 0;
-                if (i == m) minRight = nums2[j];
-                else if (j == n) minRight = nums1[i];
-                else minRight = min(nums1[i], nums2[j]);
-                return (maxLeft + minRight) / 2.0;
-            }
-        }
-        return 0.0;
-    }
-};
-`}</code></pre>
-      </div>
+      <CodeSolution solutions={medianOfTwoSortedArraysSolutions} />
       <Link href="/" className="text-blue-600 hover:underline mt-8 inline-block">← Back to Home</Link>
     </main>
   );

@@ -1,5 +1,9 @@
+'use client';
 import Link from 'next/link';
 import AddTwoNumbersAnimationClient from './AddTwoNumbersAnimationClient';
+import Tabs from '../../components/Tabs';
+import CodeSolution from '../../components/CodeSolution';
+import { addTwoNumbersSolutions } from './solutions';
 
 export default function AddTwoNumbers() {
   return (
@@ -15,81 +19,30 @@ export default function AddTwoNumbers() {
         <li>If the sum is 10 or more, carry over 1 to the next digit.</li>
         <li>Continue until both lists and the carry are processed.</li>
       </ol>
-      <h3 className="font-semibold mb-1">Example</h3>
-      <div className="mb-4 bg-gray-50 p-3 rounded">
-        <div><b>Input:</b> (2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)</div>
-        <div><b>Output:</b> (7 -&gt; 0 -&gt; 8) <span className="text-gray-500">// 342 + 465 = 807</span></div>
-      </div>
       <h3 className="font-semibold mb-1">Why this works</h3>
       <p className="mb-4">This approach mimics the way you add numbers by hand, digit by digit, from right to left, handling the carry as you go.</p>
-      <h3 className="font-semibold mb-2">Animated Solution Visualization</h3>
-      <AddTwoNumbersAnimationClient />
+      
+      <h3 className="font-semibold mb-1">Examples</h3>
+      <Tabs labels={["Simple", "Complex"]}>
+        <div key="simple">
+          <div className="mb-4 bg-gray-50 p-3 rounded">
+            <div><b>Input:</b> (2 → 4 → 3) + (5 → 6 → 4)</div>
+            <div><b>Output:</b> (7 → 0 → 8) <span className="text-gray-500">(342 + 465 = 807)</span></div>
+          </div>
+          <AddTwoNumbersAnimationClient />
+        </div>
+        <div key="complex">
+          <div className="mb-4 bg-gray-50 p-3 rounded">
+            <div><b>Input:</b> (9 → 9 → 9 → 9) + (9 → 9 → 9 → 9 → 9 → 9)</div>
+            <div><b>Output:</b> (8 → 9 → 9 → 9 → 0 → 0 → 1) <span className="text-gray-500">(9999 + 999999 = 1009998)</span></div>
+            <div className="text-sm text-gray-600 mt-1">This example demonstrates handling multiple carries through different length lists.</div>
+          </div>
+          <AddTwoNumbersAnimationClient l1={[9, 9, 9, 9]} l2={[9, 9, 9, 9, 9, 9]} />
+        </div>
+      </Tabs>
+      
       <h3 className="font-semibold mb-2 mt-6">Code Solutions</h3>
-      <div className="mb-4">
-        <div className="font-semibold">Python</div>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm"><code>{`
-class Solution:
-    def addTwoNumbers(self, l1, l2):
-        dummy = ListNode(0)
-        cur = dummy
-        carry = 0
-        while l1 or l2 or carry:
-            x = l1.val if l1 else 0
-            y = l2.val if l2 else 0
-            s = x + y + carry
-            carry = s // 10
-            cur.next = ListNode(s % 10)
-            cur = cur.next
-            l1 = l1.next if l1 else None
-            l2 = l2.next if l2 else None
-        return dummy.next
-`}</code></pre>
-      </div>
-      <div className="mb-4">
-        <div className="font-semibold">Java</div>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm"><code>{`
-class Solution {
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode dummy = new ListNode(0), cur = dummy;
-        int carry = 0;
-        while (l1 != null || l2 != null || carry != 0) {
-            int x = l1 != null ? l1.val : 0;
-            int y = l2 != null ? l2.val : 0;
-            int sum = x + y + carry;
-            carry = sum / 10;
-            cur.next = new ListNode(sum % 10);
-            cur = cur.next;
-            l1 = l1 != null ? l1.next : null;
-            l2 = l2 != null ? l2.next : null;
-        }
-        return dummy.next;
-    }
-}
-`}</code></pre>
-      </div>
-      <div className="mb-4">
-        <div className="font-semibold">C++</div>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm"><code>{`
-class Solution {
-public:
-    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        ListNode dummy(0), *cur = &dummy;
-        int carry = 0;
-        while (l1 || l2 || carry) {
-            int x = l1 ? l1->val : 0;
-            int y = l2 ? l2->val : 0;
-            int sum = x + y + carry;
-            carry = sum / 10;
-            cur->next = new ListNode(sum % 10);
-            cur = cur->next;
-            l1 = l1 ? l1->next : nullptr;
-            l2 = l2 ? l2->next : nullptr;
-        }
-        return dummy.next;
-    }
-};
-`}</code></pre>
-      </div>
+      <CodeSolution solutions={addTwoNumbersSolutions} />
       <Link href="/" className="text-blue-600 hover:underline mt-8 inline-block">← Back to Home</Link>
     </main>
   );

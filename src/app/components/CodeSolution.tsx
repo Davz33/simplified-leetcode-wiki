@@ -136,7 +136,7 @@ export default function CodeSolution({ solutions, className = "" }: CodeSolution
 
   return (
     <div className={className}>
-      <Tabs labels={tabLabels} contentClassName="relative">
+      <Tabs labels={tabLabels}>
         {tabContents}
       </Tabs>
     </div>
