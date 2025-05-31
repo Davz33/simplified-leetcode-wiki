@@ -1,9 +1,4 @@
-'use client';
-
 import React, { useState, useEffect, useRef } from 'react';
-
-const nums = [2, 7, 11, 15, 1, 8];
-const target = 9;
 
 // Precompute the steps for the animation
 function getSteps(nums: number[], target: number) {
@@ -27,8 +22,11 @@ function getSteps(nums: number[], target: number) {
 }
 
 export default function TwoSumAnimation({ nums: propNums, target: propTarget }: { nums?: number[], target?: number }) {
-  const numsToUse = propNums ?? nums;
-  const targetToUse = propTarget ?? target;
+  const defaultNums = [2, 7, 11, 15, 1, 8];
+  const defaultTarget = 9;
+  
+  const numsToUse = propNums ?? defaultNums;
+  const targetToUse = propTarget ?? defaultTarget;
   const steps = getSteps(numsToUse, targetToUse);
   const [step, setStep] = useState(0);
   const [playing, setPlaying] = useState(true);
@@ -46,6 +44,11 @@ export default function TwoSumAnimation({ nums: propNums, target: propTarget }: 
   }, [playing, step]);
 
   const current = steps[step];
+
+  // Safety check: if no steps available, return null or loading state
+  if (!current) {
+    return <div className="text-center p-4">Loading animation...</div>;
+  }
 
   return (
     <div className="flex flex-col items-center gap-4">

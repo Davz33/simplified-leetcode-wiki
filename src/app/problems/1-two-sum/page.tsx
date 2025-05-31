@@ -1,6 +1,9 @@
+'use client';
 import Link from 'next/link';
-import TwoSumAnimation from './TwoSumAnimation';
+import TwoSumAnimationClient from './TwoSumAnimationClient';
 import Tabs from '../../components/Tabs';
+import CodeSolution from '../../components/CodeSolution';
+import { twoSumSolutions } from './solutions';
 // Animation component would be imported here if present
 
 export default function TwoSum() {
@@ -22,65 +25,30 @@ export default function TwoSum() {
         <li>Use a dictionary to remember numbers you&#39;ve seen and their indices.</li>
         <li>If you find such a pair, return their indices.</li>
       </ol>
-      <h3 className="font-semibold mb-1">Use Cases & Animations</h3>
+      <h3 className="font-semibold mb-1">Why this works</h3>
+      <p className="mb-4">The dictionary lets you check in constant time if the needed number exists, making the solution fast (O(n) time).</p>
+      
+      <h3 className="font-semibold mb-1">Examples</h3>
       <Tabs labels={["Simple", "Complex"]}>
         <div key="simple">
           <div className="mb-4 bg-gray-50 p-3 rounded">
-            <div><b>Input:</b> nums = [2, 7, 11, 15, 1, 8], target = 9</div>
-            <div><b>Output:</b> [0, 1] <span className="text-gray-500">{'// nums[0] + nums[1] = 2 + 7 = 9'}</span></div>
+            <div><b>Input:</b> nums = [2, 7, 11, 15], target = 9</div>
+            <div><b>Output:</b> [0, 1] <span className="text-gray-500">(nums[0] + nums[1] = 2 + 7 = 9)</span></div>
           </div>
-          <TwoSumAnimation />
+          <TwoSumAnimationClient />
         </div>
         <div key="complex">
           <div className="mb-4 bg-gray-50 p-3 rounded">
-            <div><b>Input:</b> nums = [10, 22, 5, 75, 65, 80, 120, 150, 200, 1, 2, 3, 4, 5, 6], target = 170</div>
-            <div><b>Output:</b> [2, 8] <span className="text-gray-500">{'// nums[2] + nums[8] = 5 + 165 = 170'}</span></div>
+            <div><b>Input:</b> nums = [3, 5, 7, 11, 13, 17, 19, 21, 2, 6], target = 8</div>
+            <div><b>Output:</b> [8, 9] <span className="text-gray-500">(nums[8] + nums[9] = 2 + 6 = 8)</span></div>
+            <div className="text-sm text-gray-600 mt-1">This example demonstrates the algorithm working through many elements before finding the solution.</div>
           </div>
-          <TwoSumAnimation nums={[10, 22, 5, 75, 65, 80, 120, 150, 200, 1, 2, 3, 4, 5, 6]} target={170} />
+          <TwoSumAnimationClient nums={[3, 5, 7, 11, 13, 17, 19, 21, 2, 6]} target={8} />
         </div>
       </Tabs>
+      
       <h3 className="font-semibold mb-2 mt-6">Code Solutions</h3>
-      <Tabs labels={["Python", "Java", "C++"]}>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm" key="py"><code>{`
-class Solution:
-    def twoSum(self, nums, target):
-        d = {}
-        for i, x in enumerate(nums):
-            y = target - x
-            if y in d:
-                return [d[y], i]
-            d[x] = i
-`}</code></pre>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm" key="java"><code>{`
-class Solution {
-    public int[] twoSum(int[] nums, int target) {
-        Map<Integer, Integer> d = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            int x = nums[i], y = target - x;
-            if (d.containsKey(y)) {
-                return new int[]{d.get(y), i};
-            }
-            d.put(x, i);
-        }
-        return new int[0];
-    }
-}
-`}</code></pre>
-        <pre className="bg-gray-100 rounded p-2 overflow-x-auto text-sm" key="cpp"><code>{`
-class Solution {
-public:
-    vector<int> twoSum(vector<int>& nums, int target) {
-        unordered_map<int, int> d;
-        for (int i = 0; i < nums.size(); ++i) {
-            int x = nums[i], y = target - x;
-            if (d.count(y)) return {d[y], i};
-            d[x] = i;
-        }
-        return {};
-    }
-};
-`}</code></pre>
-      </Tabs>
+      <CodeSolution solutions={twoSumSolutions} />
       <Link href="/" className="text-blue-600 hover:underline mt-8 inline-block">← Back to Home</Link>
     </main>
   );
